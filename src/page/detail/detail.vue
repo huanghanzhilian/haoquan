@@ -13,6 +13,7 @@
               </div>
             </div>
             <div class="linese">
+              <my-input-number></my-input-number>
               <div class="linese_left">
                 <i class="iconfont icon-riqi"></i> 有效期
               </div>
@@ -53,6 +54,8 @@
 import { mapMutations, mapState } from 'vuex'
 import { getActivityDetail,getLayoutControl } from 'src/service/getData'
 import alertTip from '../../components/common/alertTip'
+import myInputNumber from 'src/components/common/my-input-number'
+
 
 export default {
   //数据
@@ -90,7 +93,7 @@ export default {
   },
   //更新完成状态
   updated() {
-    this.$bus.$emit('execute-setcolor')
+    //this.$bus.$emit('execute-setcolor')
   },
   //销毁前状态
   beforeDestroy() {
@@ -102,7 +105,8 @@ export default {
   },
   //需要使用的模块
   components: {
-    alertTip
+    alertTip,
+    myInputNumber
   },
 
   //父组件的参数书
@@ -168,6 +172,7 @@ export default {
 
 .activityDetail_container {
   padding-bottom: 1.6rem;
+  background-color: #f3f3f3;
 }
 
 .activityDetail_wrap {}
@@ -186,35 +191,38 @@ export default {
   }
 }
 
-
+/* 头部图 控制区 s */
 .activity_top {
   .activity_top_wrap {
     background-color: #fff;
     margin-bottom: .18rem;
     img {
       width: 100%;
-      height: 3.5rem;
+      height: 7.5rem;
+      display: block;
     }
     .content {
-      padding: .2rem;
       .order_name_box {
+        padding: .2rem .28rem;
+        border-bottom: solid .025rem #dedede;
+        color: #333333;
         .name {
-          font-weight: 600;
-          font-size: .34rem;
+          font-size: .3rem;
+          line-height: .5rem;
         }
         .order_number {
-          padding-bottom: .2rem;
-          border-bottom: solid .025rem #ccc;
+          font-size: .24rem;
+          line-height: .42rem;
           .number1 {
-            color: $fontC;
+            color: #666666;
             .fangda {
-              color: $fontC;
-              font-size: .44rem;
+              color: #F85A6A;
+              font-size: .3rem;
               margin-right: .08rem;
             }
           }
           .number2 {
-            color: $fontA;
+            color: #999999;
             text-decoration: line-through;
           }
         }
@@ -233,6 +241,7 @@ export default {
     }
   }
 }
+/* 头部图 控制区 e */
 
 
 .activity_content {
@@ -265,29 +274,30 @@ export default {
   }
 }
 
-
+/* 底部按钮 s */
 .confirm_wrap {
   position: fixed;
   width: 100%;
   bottom: 0;
   left: 0;
   background-color: #fff;
-  padding: .2rem;
+  padding: .15rem;
   text-align: center;
   box-shadow: 0 -0.02667rem 0.05333rem rgba(0, 0, 0, .1);
 }
 
 .confirm_btn {
   display: inline-block;
-  width: 5.9rem;
-  height: .9rem;
-  line-height: .9rem;
+  width: 6.9rem;
+  height: .88rem;
+  line-height: .88rem;
   color: #fff;
-  border-radius: .4rem;
-  background-color: $fontA;
+  border-radius: .44rem;
+  background-color: #ccc;
   &.active {
-    background-color: $fontD;
+    background-color: #faa814;
   }
 }
+/* 底部按钮 e */
 
 </style>
