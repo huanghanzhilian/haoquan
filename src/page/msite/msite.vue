@@ -8,15 +8,11 @@ import iconsControl from 'src/components/common/indexLayout/iconsControl'
 
 import { getLayoutControl,getThemecss } from 'src/service/getData'
 
+import errorControl from 'src/components/common/errorControl'
+
 
 
 export default {
-  //数据
-  data() {
-    return {
-      layerItems:[],//布局数据
-    }
-  },
   render() {
     var layerItems = this.layerItems;
     var items = [];
@@ -36,8 +32,25 @@ export default {
       return (
           <div class="msite_wrap" >
               {items}
+              {
+                this.errorObj.status
+                ?<error-control errorObj={this.errorObj}></error-control>
+                :""
+              }
           </div>
       );
+  },
+  //数据
+  data() {
+    return {
+      layerItems:[],//布局数据
+      //处理错误机制数据
+      errorObj:{
+        status:false,
+        text:'出现异常',
+        type:1,
+      }
+    }
   },
 
   //创建完毕状态
@@ -57,7 +70,8 @@ export default {
     threeControl,
     indexlistControl,
     navtopControl,
-    iconsControl
+    iconsControl,
+    errorControl
   },
 
   //父组件的参数书
@@ -80,7 +94,12 @@ export default {
       this.$bus.$emit('execute-setcolor')
       //获取布局数据
       await getLayoutControl().then(res => {
-        this.layerItems=res.data;
+        if(res.res){
+          this.layerItems=res.data;
+        }else{
+          this.errorObj.status=true;
+          this.errorObj.text=res.message;
+        }
       });
       this.SET_LOADING(false);
     },
@@ -104,13 +123,4 @@ export default {
 .msite_container {
   flex: 1;
 }
-
-
-
-
-
-
-
-
-
 </style>

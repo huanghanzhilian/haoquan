@@ -1,21 +1,35 @@
 import { imgBaseUrl } from 'src/config/env'
 export default {
   install(Vue, options) {
+    /*=======================雪碧图=========================*/
     //图片加载错误设置默认图片
     Vue.prototype.imgError = function(e) {
       var img = e.currentTarget;
-      img.src = require('./images/default.png');
+      img.src = require('./images/defaults/order_default.png');
     }
-    //图片加载错误设置默认icon
-    Vue.prototype.imgErrorIcon = function(e) {
+    //banner，默认图
+    Vue.prototype.imgErrorBanner = function(e) {
       var img = e.currentTarget;
-      img.src = require('./images/head.jpg')
+      img.src = require('./images/defaults/banner_default.png')
     }
-    //大图
-    Vue.prototype.imgErrorDatu = function(e) {
+    //橱窗位左
+    Vue.prototype.imgErrorDatuLeft = function(e) {
       var img = e.currentTarget;
-      img.src = require('./images/datu.jpg')
+      img.src = require('./images/defaults/c_l_default.png')
     }
+    //橱窗位右
+    Vue.prototype.imgErrorDatuRight = function(e) {
+      var img = e.currentTarget;
+      img.src = require('./images/defaults/c_r_default.png')
+    }
+
+
+
+
+
+
+
+
     // 时间转换
     Vue.prototype.formatDuring = function(mss) {
       mss = mss * 1000;

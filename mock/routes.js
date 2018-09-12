@@ -8,6 +8,13 @@ module.exports = {
   //首页布局模块接口
   "/api/layout/control*": "/api_layout_control",
 
+  //可用优惠券
+  "/api/getMemberCouponList*": "/api_getMemberCouponList",
+
+
+
+
+
 
   //首页轮播图接口
   "/api/roadcast*": "/api_roadcast",

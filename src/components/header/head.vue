@@ -391,10 +391,10 @@ export default {
   z-index: 11111;
   .head_login_img {
     @include wh(2rem, 100%);
-    background: url(../../images/logo.png) center center no-repeat;
+    /*background: url(../../images/logo.png) center center no-repeat;
     background-size: 100%;
     display: block;
-    margin: auto;
+    margin: auto;*/
   }
 }
 

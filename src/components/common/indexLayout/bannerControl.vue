@@ -5,7 +5,7 @@
       <div class="swiper-wrapper">
         <div class="swiper-slide food_types_container" v-for="(item,index) in roadcastArray" :key="index">
           <div class="link_to_food">
-            <img :src="item.roadcastImg" @error="imgError($event)">
+            <img :src="item.roadcastImg" @error="imgErrorBanner($event)">
           </div>
         </div>
       </div>

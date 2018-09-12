@@ -5,6 +5,27 @@ export const getLayoutControl= () => {
   return http.fetchGet('/api/layout/control')
 };
 
+//查询会员券表
+export const getMemberCouponList = (p,p_num,status) => {
+  return http.fetchPost('/api/getMemberCouponList',{
+    p,
+    p_num,
+    status
+  })
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 //首页轮播图
 export const roadcastList = () => {
   return http.fetchGet('/api/roadcast')

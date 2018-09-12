@@ -3,16 +3,16 @@
   <div class="content_box">
     <div class="content_top">
       <div class="content_top_title">{{commoArray.listTitle}}</div>
-      <router-link tag="span" to="list" class="content_mone">更多&gt;&gt;</router-link>
+      <router-link tag="span" to="goodsList" class="content_mone">更多&gt;&gt;</router-link>
     </div>
     <ul class="content_list_wrap">
-      <router-link :to="{path: '/activityDetail', query:{id:item.id}}" tag="li" class="content_list_item" v-for="item in commoArray.listData">
+      <router-link :to="{path: '/detail', query:{id:item.id}}" tag="li" class="content_list_item" v-for="item in commoArray.listData">
         <div class="item_title">
           <div class="item_name ellipsis">{{item.describe}}</div>
           <div class="item_describe"><span class="text_yellow" style="margin-right: .06rem">{{item.goldcoin}}</span>金币</div>
         </div>
         <div class="item_imgBox">
-          <img :src="item.roadcastImg" alt="">
+          <img :src="item.roadcastImg" @error="imgError($event)" alt="">
         </div>
       </router-link>
     </ul>

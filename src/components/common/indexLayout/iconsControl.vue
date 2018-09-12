@@ -1,10 +1,18 @@
 <template>
   <div class="icons_control">
     <ul class="icon_wrap">
-      <li class="item_iocn" v-for="(item,key,index) in items">
-        <i class="iconfont icon-zuanshi icon_styles"></i>
+      <router-link :to="{path: '/'+item.router}" tag="li" class="item_iocn" v-for="(item,key,index) in items">
+        <i class="iconfont icon_styles"
+        :class="{
+                  'icon-shangpin':item.router=='goodsList',
+                  'icon-jifen':item.router=='integralQuery',
+                  'icon-icon-':item.router=='accountOrder',
+                  'icon-youhuiquan-':item.router=='ticketList',
+                  'icon-qiandao':item.router=='qdlottery'
+                }"
+        ></i>
         <p class="item_text">{{item.itemText}}</p>
-      </li>
+      </router-link>
     </ul>
   </div>
 </template>
@@ -16,7 +24,6 @@ export default {
   //数据
   data() {
     return {
-      
     }
   },
 

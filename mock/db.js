@@ -42,23 +42,23 @@ module.exports = {
       "results":[{
         "itemText":"所有商品",
         "itemCode":"1",
-        "router":"page"
+        "router":"goodsList"
       },{
         "itemText":"我的积分",
         "itemCode":"2",
-        "router":"page"
+        "router":"integralQuery"
       },{
         "itemText":"我的订单",
         "itemCode":"3",
-        "router":"page"
-      },{
-        "itemText":"我的优惠券",
-        "itemCode":"4",
-        "router":"page"
+        "router":"accountOrder"
       },{
         "itemText":"签到",
         "itemCode":"5",
-        "router":"page"
+        "router":"qdlottery"
+      },{
+        "itemText":"我的优惠券",
+        "itemCode":"4",
+        "router":"ticketList"
       }]
     },{
       "itemType":"three",
@@ -126,6 +126,60 @@ module.exports = {
     }]
   }),
 
+  //可用优惠券
+  api_getMemberCouponList: Mock.mock({
+    "res": true,
+    "data": {
+      "count_num": 1,
+      "list": [{
+        "id": 133,
+        "wx_card_code": "0028341676151979",
+        "coupon_template_id": 100,
+        "end_time": "2018-12-01 00:00:00",
+        "status": 2,
+        "title": "满100减20",
+        "wx_logo_url": "https://mmbiz.qlogo.cn/mmbiz_jpg/6rqCdykt50hBAFbdMz9wxKSrwwOTKWsSlS17xASasvl06GtVjpcaclqziclb0IA4KjLmpVwcshwsV4QRwB0Hkkg/0?wx_fmt=jpeg"
+      }]
+    }
+  }),
+
+  //商品详情接口
+  api_activity_detail: Mock.mock({
+    "code": 0,
+    "msg": "success",
+    "data": {
+      "originalIntegral": "@natural(0, 100)",
+      "newIntegral": "@natural(0, 100)",
+      "name": "@csentence(3, 5)",
+      "newTime": "@date('yyyy-MM-dd')",
+      "oldTime": "@date('yyyy-MM-dd')",
+      "id": "@id",
+      "roadcastImg": "@IMG(300x160,@color())",
+      "status": true, //"@boolean",
+      "describe": "@cparagraph(1, 3)",
+      "goldcoin": "@natural(0, 100)",
+    }
+  }),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   //轮播图
   api_roadcast: Mock.mock({
     "code": 0,
@@ -189,23 +243,7 @@ module.exports = {
     }
   }),
 
-  //积分商品详情接口
-  api_activity_detail: Mock.mock({
-    "code": 0,
-    "msg": "success",
-    "data": {
-      "originalIntegral": "@natural(0, 100)",
-      "newIntegral": "@natural(0, 100)",
-      "name": "@csentence(3, 5)",
-      "newTime": "@date('yyyy-MM-dd')",
-      "oldTime": "@date('yyyy-MM-dd')",
-      "id": "@id",
-      "roadcastImg": "@IMG(300x160,@color())",
-      "status": true, //"@boolean",
-      "describe": "@cparagraph(1, 3)",
-      "goldcoin": "@natural(0, 100)",
-    }
-  }),
+  
 
   //所以积分列表接口
   api_product_list: Mock.mock({

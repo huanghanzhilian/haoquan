@@ -10,7 +10,7 @@
       </form>
     </header>
     <ul class="exchange_list_wrap" v-if="pageStatus" v-load-more="loaderMore">
-      <router-link :to="{path: '/activityDetail', query:{id:item.id}}" tag="li" class="dopser_item" v-for="item in orderListArr">
+      <router-link :to="{path: '/detail', query:{id:item.id}}" tag="li" class="dopser_item" v-for="item in orderListArr">
         <div class="dopser_item_l">
           <img :src="item.roadcastImg" @error="imgError($event)">
         </div>
