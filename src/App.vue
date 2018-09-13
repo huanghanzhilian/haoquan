@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app_wrap">
     <!-- <img :src="require('src/images/loading.gif')"> -->
     <!-- <img src="~src/images/loading.gif"> -->
     <transition name="router-fade" mode="out-in">
@@ -121,6 +121,11 @@ export default {
 #app{
   height: 100%;
   width: 100%;
+}
+.app_wrap{
+  height: 100%;
+  width: 100%;
+  background-color: #f3f3f3;
 }
 
 /*淡入激活

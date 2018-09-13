@@ -174,3 +174,30 @@ body {
 .text_yellow{
   color: #fa5908;
 }
+
+
+/* 开关按钮 s */
+.mint-switch-core{
+  height: 24px;
+  border-radius: 12px;
+}
+.mint-switch-input:checked + .mint-switch-core {
+    border-color: #faa814;
+    background-color: #faa814;
+}
+.mint-switch-core::before {
+    width: 50px;
+    height: 22px;
+    background-color: #fdfdfd;
+}
+.mint-switch-core::after {
+    width: 22px;
+    height: 22px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+}
+.mint-switch-input:checked + .mint-switch-core::after {
+    -webkit-transform: translateX(28px);
+    transform: translateX(28px);
+}
+/* 开关按钮 e */

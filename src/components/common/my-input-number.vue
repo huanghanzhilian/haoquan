@@ -1,13 +1,18 @@
 <template>
   <div class="my-input-number">
-    <span class="input-number-btn input-number-decrease">
+    <span @click="decrease" class="input-number-btn input-number-decrease">
       <i class="iconfont icon-jian"></i>
     </span>
-    <span class="input-number-btn input-number-increase">
+    <span @click="increase" class="input-number-btn input-number-increase">
       <i class="iconfont icon-jia"></i>
     </span>
     <div class="input-wrap">
-      <input type="text" value="">
+      <input
+        type="text"
+        :value="value"
+        readonly="readonly"
+        @input="$emit('input', $event.target.value)"
+        ref="input">
     </div>
   </div>
 </template>
@@ -21,8 +26,29 @@ export default {
   mounted() {
 
   },
-  props: [],
+  props: {
+    value:{},
+    minCount:{
+      type: Number,
+      default: 1
+    },
+    maxCount:{
+      type: Number,
+      default: 100
+    }
+  },
   methods: {
+    decrease(){
+      //var newnumber=JSON.parse( JSON.stringify(this.value));
+      var newnumber=parseInt(this.$refs.input.value);
+      this.$refs.input.value=newnumber > this.minCount ? newnumber - 1 : this.minCount;
+      this.$emit('input', this.$refs.input.value)
+    },
+    increase(){
+      var newnumber=parseInt(this.$refs.input.value);
+      this.$refs.input.value=newnumber < this.maxCount ? newnumber + 1 : this.maxCount;
+      this.$emit('input', this.$refs.input.value)
+    },
     // closeTip(){
     //     this.$emit('closeTip')
     // },
@@ -49,7 +75,7 @@ export default {
   display: inline-block;
   border: solid .025rem #d6d6d6;
   border-radius: .05rem;
-  overflow-y: hidden;
+  overflow: hidden;
   .input-number-btn{
     position: absolute;
     top: 0;

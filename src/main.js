@@ -7,6 +7,8 @@ import util from './util'
 import store from './store/'
 import { routerMode } from './config/env'
 import Bus from './bus.js'
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
 import { getUserInfo ,getNoticeListsss} from './service/getData'
 import './config/rem'
 import FastClick from 'fastclick'
@@ -22,7 +24,7 @@ if ('addEventListener' in document) {
 Bus(Vue)
 Vue.use(util);
 Vue.use(VueRouter)
-
+Vue.use(MintUI)
 
 
 const router = new VueRouter({

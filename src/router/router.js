@@ -28,6 +28,9 @@ const error = r => require.ensure([], () => r(require('../page/error/error')), '
 /*============活动类=========================*/
 const signIn = r => require.ensure([], () => r(require('../page/activityclass/signIn/signIn')), 'signIn'); //签到
 
+/*============我的订单=========================*/
+const accountOrder = r => require.ensure([], () => r(require('../page/accountOrder/accountOrder')), 'accountOrder'); //我的订单
+
 /**
  * 所有商品 goodsList
  * 我的积分 integralQuery
@@ -150,7 +153,15 @@ export default [{
       },
     },
 
-
+    /*============我的订单=========================*/
+    {
+      path: '/accountOrder',
+      name: 'accountOrder',
+      component: accountOrder,
+      meta: {
+        title: '我的订单'
+      },
+    },
 
     /*============活动类=========================*/
     {

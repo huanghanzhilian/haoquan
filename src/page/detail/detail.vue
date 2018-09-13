@@ -13,59 +13,60 @@
               </div>
             </div>
             <div class="linese">
-              <my-input-number></my-input-number>
               <div class="linese_left">
-                <i class="iconfont icon-riqi"></i> 有效期
+                <!-- <i class="iconfont icon-riqi"></i> -->
+                数量
               </div>
-              <div class="linese_right">{{detailsObject.newTime}} 至 {{detailsObject.oldTime}}</div>
+              <div class="linese_right">
+                <my-input-number v-model="currCount"></my-input-number>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="activity_content">
         <div class="title">商品详情</div>
-        <div class="describe">奥利奥（Oreo）Mini原味小饼干零食 55g（新老包装随机发货） </div>
-        <div class="title2">使用流程</div>
-        <ol class="text_list">
-          <li class="text_item">手动阀手动阀手动阀手动阀<a href="#">酷我音乐</a>反浪费口水防空炮付款<a href="#">酷我音乐</a>卡金佛奥卡福叫法叫</li>
-          <li class="text_item">gsggrrh发给我日日通过认为如果温热阀手动阀卡金佛奥卡福叫法叫</li>
-          <li class="text_item">手dfdsafsafafrdhryr奥卡福叫法叫</li>
-        </ol>
+        <div class="richtext">
+          <div class="describe">奥利奥（Oreo）Mini原味小饼干零食 55g（新老包装随机发货） </div>
+          <div class="title2">使用流程</div>
+          <ol class="text_list">
+            <li class="text_item">手动阀手动阀手动阀手动阀<a href="#">酷我音乐</a>反浪费口水防空炮付款<a href="#">酷我音乐</a>卡金佛奥卡福叫法叫</li>
+            <li class="text_item">gsggrrh发给我日日通过认为如果温热阀手动阀卡金佛奥卡福叫法叫</li>
+            <li class="text_item">手dfdsafsafafrdhryr奥卡福叫法叫</li>
+          </ol>
+        </div>
       </div>
-      <div class="activity_content">
-        <div class="title">重要声明</div>
-        <ol class="text_list text_listOne">
-          <li class="text_item">手动阀手动阀手动阀手动阀佛奥卡福叫法叫</li>
-          <li class="text_item">gsggrrh发给我日日通过认为如果温热阀手动阀卡金佛奥卡福叫法叫</li>
-          <li class="text_item">手dfdsafsafafrdhryr奥卡福叫法叫</li>
-        </ol>
-      </div>
+
       <div class="confirm_wrap">
         <span class="confirm_btn" @click="goExchange" :class="{active:detailsObject.status}">{{detailsObject.status?'马上兑换':'已兑换'}}</span>
       </div>
     </div>
-    <div class="loading" v-else>
-      <img src="../../images/loading.gif">
-    </div>
-    <alert-tip v-if="showAlert" :showHide="showAlert" :alertType="alertType" @closecont="closecont" @closeTip="closeTip" :alertTitle="alertTitle" :alertText="alertText"></alert-tip>
+
+
+    <error-control v-if="errorObj.status" :errorObj="errorObj"></error-control>
   </div>
 </template>
 <script>
 import { mapMutations, mapState } from 'vuex'
 import { getActivityDetail,getLayoutControl } from 'src/service/getData'
-import alertTip from '../../components/common/alertTip'
+
 import myInputNumber from 'src/components/common/my-input-number'
+import errorControl from 'src/components/common/errorControl'
 
 
 export default {
   //数据
   data() {
     return {
+      //异常处理数据
+      errorObj: {
+        status: false,
+        text: '出现异常',
+        type: 1,
+      },
+
+      currCount:2,
       detailsObject: {}, //商品详情信息
-      showAlert: false, //显示提示组件
-      alertText: null, //提示的内容
-      alertTitle: null, //提示title
-      alertType:1,//弹窗类型
     }
   },
   //创建前
@@ -87,26 +88,12 @@ export default {
     this.$bus.$emit('execute-setcolor')
     this.initData();
   },
-  //更新前状态
-  beforeUpdate() {
 
-  },
-  //更新完成状态
-  updated() {
-    //this.$bus.$emit('execute-setcolor')
-  },
-  //销毁前状态
-  beforeDestroy() {
 
-  },
-  //销毁完成状态
-  destroyed() {
-
-  },
   //需要使用的模块
   components: {
-    alertTip,
-    myInputNumber
+    myInputNumber,
+    errorControl
   },
 
   //父组件的参数书
@@ -126,38 +113,28 @@ export default {
       'SET_LOADING'
     ]),
     async initData() {
-      if (!this.id) {
-        alert('参数有误')
-        return
-      }
       //获取数据
       let res = await getActivityDetail(this.id);
-      this.detailsObject = res.data
-      this.SET_LOADING(false);
+      if (res.res) {
+        this.detailsObject = res.data;
+        this.SET_LOADING(false);
+      } else {
+        this.errorObj.status = true;
+        this.errorObj.text = res.message.mes;
+        this.SET_LOADING(false);
+      }
     },
 
     //确认
-    async closeTip(){
-        await getLayoutControl(this.id)
-          .then(res=>{
-            if(res.code==0){
-              this.initData()
-              this.showAlert = false;
-            }
-          })
+    async goExchange(){
+      await getLayoutControl(this.id)
+      .then(res=>{
+        if(res.res){
+          this.$router.push('/confirm');
+          //this.initData()
+        }
+      })
     },
-    closecont(){
-        this.showAlert = false;
-    },
-    goExchange(){
-      if(!this.detailsObject.status){
-        return
-      }
-      this.alertText = '请按后续的提示使用';
-      this.alertType='2';
-      this.alertTitle="确定使用<span style='color:#4169e1'>2积分</span>兑换?";
-      this.showAlert = true;
-    }
   },
 
   //监听
@@ -230,12 +207,13 @@ export default {
 
       .linese {
         @include fj;
-        padding: .15rem 0 0 0;
+        align-items: center;
+        padding: .2rem .28rem;
         .linese_left {
-          color: $fontB;
+          color: #666666;
         }
         .linese_right {
-          color: $fontB;
+          
         }
       }
     }
@@ -244,18 +222,19 @@ export default {
 /* 头部图 控制区 e */
 
 
+/* 富文本 s */
 .activity_content {
   background-color: #fff;
   margin-bottom: .18rem;
-  padding: .2rem;
   color: #10202f;
   .title {
     font-size: .3rem;
-    font-weight: 600;
-    margin-bottom: .18rem;
+    padding: .28rem;
+    border-bottom: solid .025rem #dedede;
+    color: #666666;
   }
-  .title2 {
-    margin-bottom: .05rem;
+  .richtext{
+    padding: .28rem;
   }
   .describe {
     margin-bottom: .18rem;
@@ -273,6 +252,7 @@ export default {
     }
   }
 }
+/* 富文本 e */
 
 /* 底部按钮 s */
 .confirm_wrap {

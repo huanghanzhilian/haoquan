@@ -145,8 +145,8 @@ module.exports = {
 
   //商品详情接口
   api_activity_detail: Mock.mock({
-    "code": 0,
-    "msg": "success",
+    "res": true,
+    "message": "success",
     "data": {
       "originalIntegral": "@natural(0, 100)",
       "newIntegral": "@natural(0, 100)",

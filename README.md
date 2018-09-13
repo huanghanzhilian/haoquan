@@ -155,3 +155,113 @@ samuredwonder
 Dmc741456
 
 Token值：ed214e7d7cddda0b6f449da56e342f82
+
+
+
+页面模板
+```
+<template>
+  <div class="confirm_container">
+    <error-control v-if="errorObj.status" :errorObj="errorObj"></error-control>
+  </div>
+</template>
+<script>
+import { mapMutations, mapState } from 'vuex'
+import { getActivityDetail, getLayoutControl } from 'src/service/getData'
+
+import myInputNumber from 'src/components/common/my-input-number'
+import errorControl from 'src/components/common/errorControl'
+
+export default {
+  //数据
+  data() {
+    return {
+      //异常处理数据
+      errorObj: {
+        status: false,
+        text: '出现异常',
+        type: 1,
+      },
+      detailsObject: {}, //商品详情信息
+
+    }
+  },
+  //创建前
+  beforeCreate() {
+
+  },
+  //创建完毕状态
+  created() {
+    this.id = this.$route.query.id;
+    //this.productId = this.$route.query.productId;
+  },
+
+  //挂载前状态
+  beforeMount() {
+
+  },
+  //挂载结束状态
+  mounted() {
+    this.initData();
+  },
+
+
+  //需要使用的模块
+  components: {
+    myInputNumber,
+    errorControl
+  },
+
+  //父组件的参数书
+  props: [],
+
+  //需要引用的外部js方法
+  mixins: [],
+
+  //计算值 这里可以实时监听某个数据的变化
+  computed: {
+
+  },
+
+  //方法
+  methods: {
+    ...mapMutations([
+      'SET_LOADING'
+    ]),
+    async initData() {
+      //获取数据
+      let res = await getActivityDetail(this.id);
+      if (res.res) {
+        this.detailsObject = res.data;
+        this.SET_LOADING(false);
+      } else {
+        this.errorObj.status = true;
+        this.errorObj.text = res.message.mes;
+        this.SET_LOADING(false);
+      }
+    },
+
+    //确认
+    async goExchange() {
+      await getLayoutControl(this.id)
+        .then(res => {
+          if (res.res) {
+            this.initData()
+          }
+        })
+    },
+  },
+
+  //监听
+  watch: {
+
+  }
+}
+
+</script>
+<style lang="scss" scoped>
+@import 'src/style/mixin';
+
+</style>
+
+```
