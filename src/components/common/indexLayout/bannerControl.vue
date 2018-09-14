@@ -1,24 +1,23 @@
 <template>
   <!-- 组件盒子 -->
   <nav class="msite_nav">
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide food_types_container" v-for="(item,index) in roadcastArray" :key="index">
+    <mt-swipe :auto="4000">
+      <mt-swipe-item v-for="(item,index) in roadcastArray" :key="index">
+        <div class="food_types_container">
           <div class="link_to_food">
             <img :src="item.roadcastImg" @error="imgErrorBanner($event)">
           </div>
         </div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div>
+      </mt-swipe-item>
+    </mt-swipe>
   </nav>
 </template>
 <script>
 //引入存储
+import { Swipe, SwipeItem } from 'mint-ui';
+
 //import { setStore, getStore } from '@/config/mUtils'
 import { roadcastList } from 'src/service/getData'
-import 'src/plugins/swiper.min.js'
-import 'src/style/swiper.min.css'
 
 
 export default {
@@ -50,22 +49,6 @@ export default {
       //获取轮播图数据
       await roadcastList().then(res => {
         this.roadcastArray = res.data;
-      }).then(() => {
-        //初始化swiper
-        new Swiper('.swiper-container', {
-          pagination: '.swiper-pagination',
-          autoplay: 3000, //可选选项，自动滑动
-          paginationClickable: true,
-          autoplayDisableOnInteraction : false,
-          // observer: true, //修改swiper自己或子元素时，自动初始化swiper
-          // observeParents: false, //修改swiper的父元素时，自动初始化swiper
-          // onSlideChangeEnd: function(swiper) {　　　
-          //   swiper.update();　　　
-          //   mySwiper.startAutoplay();　　
-          //   mySwiper.reLoop();
-          // }
-          loop: true,
-        });
       })
     },
     //轮播
@@ -107,7 +90,7 @@ export default {
   },
   //挂载结束状态
   mounted() {
-    this.initBroadcast();
+    //this.initBroadcast();
     //this.initData();
   },
   //更新前状态
@@ -136,8 +119,8 @@ export default {
 /*轮播图*/
 
 .msite_nav {
-  background-color: #000;
-  height: 3.2rem;
+  /*background-color: #000;*/
+  height: 3.6rem;
   .swiper-container {
     height: 100%;
   }

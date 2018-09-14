@@ -26,7 +26,7 @@ export default {
   //数据
   data() {
     return {
-      
+
     }
   },
   //需要使用的模块
@@ -97,20 +97,20 @@ export default {
       }
     }
     .three_list{
-      padding: .18rem;
       display: flex;
       list-style: none;
       .three_item{
         flex: 1;
-        padding-right: .2rem;
-        &:last-child {
+        padding: .15rem .12rem;
+        border-right: solid .025rem #E0E0E0;
+        /*&:last-child {
             padding-right:0;
-        }
+        }*/
         .img_wrap{
           width: 100%;
           img{
             width: 100%;
-            height: 2.3rem;
+            height: 1.32rem;
             border-radius: .08rem;
             display: block;
           }

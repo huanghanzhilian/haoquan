@@ -2,15 +2,15 @@
   <div class="icons_control">
     <ul class="icon_wrap">
       <router-link :to="{path: '/'+item.router}" tag="li" class="item_iocn" v-for="(item,key,index) in items">
-        <i class="iconfont icon_styles"
+        <span class="icon_der"
         :class="{
-                  'icon-shangpin':item.router=='goodsList',
-                  'icon-jifen':item.router=='integralQuery',
-                  'icon-icon-':item.router=='accountOrder',
-                  'icon-youhuiquan-':item.router=='ticketList',
-                  'icon-qiandao':item.router=='qdlottery'
+                  'goodsList':item.router=='goodsList',
+                  'integralQuery':item.router=='integralQuery',
+                  'accountOrder':item.router=='accountOrder',
+                  'ticketList':item.router=='ticketList',
+                  'qdlottery':item.router=='qdlottery'
                 }"
-        ></i>
+        ></span>
         <p class="item_text">{{item.itemText}}</p>
       </router-link>
     </ul>
@@ -67,16 +67,45 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import 'src/style/mixin';
+.icons_control{
+  margin-bottom: .22rem;
+}
 .icon_wrap{
   display: flex;
   list-style: none;
-  border-bottom: solid .025rem #e7e7e7;
+  /*border-bottom: solid .025rem #e7e7e7;*/
+  background-color: #fff;
   .item_iocn{
     flex: 1;
     padding: .2rem 0;
     text-align: center;
-    .icon_styles{
-      font-size: .35rem;
+    .item_text{
+      font-size: .24rem;
+      color: #333333;
+      line-height: .4rem;
+    }
+    .icon_der{
+      display: inline-block;
+      width: .88rem;
+      height: .88rem;
+      background-position: center;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      &.goodsList{
+        background-image: url(../../../images/indeximage/iconslayer/goodsList.png);
+      }
+      &.integralQuery{
+        background-image: url(../../../images/indeximage/iconslayer/integralQuery.png);
+      }
+      &.accountOrder{
+        background-image: url(../../../images/indeximage/iconslayer/accountOrder.png);
+      }
+      &.ticketList{
+        background-image: url(../../../images/indeximage/iconslayer/ticketList.png);
+      }
+      &.qdlottery{
+        background-image: url(../../../images/indeximage/iconslayer/qdlottery.png);
+      }
     }
   }
 }

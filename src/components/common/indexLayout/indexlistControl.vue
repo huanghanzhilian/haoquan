@@ -7,12 +7,15 @@
     </div>
     <ul class="content_list_wrap">
       <router-link :to="{path: '/detail', query:{id:item.id}}" tag="li" class="content_list_item" v-for="item in commoArray.listData">
+        <div class="item_imgBox">
+          <img :src="item.roadcastImg" @error="imgError($event)" alt="">
+        </div>
         <div class="item_title">
           <div class="item_name ellipsis">{{item.describe}}</div>
           <div class="item_describe"><span class="text_yellow" style="margin-right: .06rem">{{item.goldcoin}}</span>金币</div>
         </div>
-        <div class="item_imgBox">
-          <img :src="item.roadcastImg" @error="imgError($event)" alt="">
+        <div class="laber_wrap" v-if="item.laber">
+          <div class="laber_text">{{item.laber}}</div>
         </div>
       </router-link>
     </ul>
@@ -22,15 +25,11 @@
 //引入存储
 //import { setStore, getStore } from '@/config/mUtils'
 import { indexOrderList } from 'src/service/getData'
-import 'src/plugins/swiper.min.js'
-import 'src/style/swiper.min.css'
-
 
 export default {
   //数据
   data() {
     return {
-      //commoArray: [], //商品列表
     }
   },
   //需要使用的模块
@@ -63,61 +62,58 @@ export default {
   watch: {
 
   },
-  //创建前
-  beforeCreate() {
-
-  },
   //创建完毕状态
   created() {
     //this.openid = this.$route.query.openid;
     //this.productId = this.$route.query.productId;
   },
 
-  //挂载前状态
-  beforeMount() {
-
-  },
   //挂载结束状态
   mounted() {
     //this.initData();
   },
-  //更新前状态
-  beforeUpdate() {
 
-  },
-  //更新完成状态
-  updated() {
-
-  },
-  //销毁前状态
-  beforeDestroy() {
-
-  },
-  //销毁完成状态
-  destroyed() {
-
-  },
 
 }
 
 </script>
 <style lang="scss" scoped>
-@import 'src/style/mixin'; //初始化页面背景动画
+@import 'src/style/mixin';
 
 /*商品列表 s */
 
 .content_box {
-  background-color: #fff;
-  margin-bottom: .15rem;
+  margin-bottom: .10rem;
   .content_top {
-    @include fj;
-    padding: .15rem .2rem;
-    border-bottom: solid .025rem #e7e7e7;
+    line-height: .64rem;
+    height: .64rem;
+    position: relative;
     .content_top_title {
-      font-size: .28rem;
+      @include center();
+      font-size: .3rem;
+      color: #333333;
+      &:before {
+        content: "";
+        width: .6rem;
+        height: .025rem;
+        background-color: #999999;
+        @include ct();
+        left: -.68rem;
+      }
+      &:after {
+        content: "";
+        width: .6rem;
+        height: .025rem;
+        background-color: #999999;
+        @include ct();
+        right: -.68rem;
+      }
     }
     .content_mone {
-      color: $fontA;
+      @include ct();
+      right: .22rem;
+      font-size: .24rem;
+      color: #999999;
     }
   }
 
@@ -125,34 +121,60 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    position: relative;
+    .laber_wrap{
+      width: 1.65rem;
+      height: 1.65rem;
+      background-color: #ec4436;
+      text-align: center;
+      position: absolute;
+      top: -.825rem;
+      left: -.825rem;
+      transform:rotate(-45deg);
+      .laber_text{
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        line-height: .5rem;
+        height: .5rem;
+        font-size: .26rem;
+        color: #fff;
+      }
+    }
     .content_list_item {
+      width: 3.69rem;
       list-style: none;
-      width: 3.75rem;
-      height: 3.22rem;
-      padding: .2rem;
       background-color: #fff;
-      border-bottom: solid .025rem #e7e7e7;
-      border-right: solid .025rem #e7e7e7;
+      margin-right: .12rem;
+      margin-bottom: .12rem;
+      position: relative;
+      overflow: hidden;
       &:nth-child(2n) {
-        border-right: none;
+        margin-right: 0;
       }
 
       .item_title {
-        margin-bottom: .1rem;
+        line-height: .48rem;
+        padding:.1rem .18rem;
         .item_name {
-          margin-bottom: .08rem;
+          font-size: .3rem;
+          color: #333333;
         }
         .item_describe {
-          font-size: .24rem;
+          font-size: .29rem;
+          color: #666666;
           .text_yellow{
-            color:$fontC;
+            color:#F85A6A;
           }
         }
       }
 
       .item_imgBox {
+        padding:.84rem .35rem;
         img {
           width: 100%;
+          border-radius: .08rem;
+          display: block;
         }
       }
     }

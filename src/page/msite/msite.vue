@@ -2,6 +2,7 @@
 import { mapMutations, mapState } from 'vuex'
 import bannerControl from 'src/components/common/indexLayout/bannerControl'
 import threeControl from 'src/components/common/indexLayout/threeControl'
+import threeThreeControl from 'src/components/common/indexLayout/threeThreeControl'
 import indexlistControl from 'src/components/common/indexLayout/indexlistControl'
 import navtopControl from 'src/components/common/indexLayout/navtopControl'
 import iconsControl from 'src/components/common/indexLayout/iconsControl'
@@ -21,8 +22,10 @@ export default {
         items.push(<banner-control key={i+1} roadcastArray={layerItems[i].results}></banner-control>);
       }else if(layerItems[i].itemType=='navtop'){
         items.push(<navtop-control></navtop-control>);
-      }else if(layerItems[i].itemType=='three'){
+      }else if(layerItems[i].itemType=='threeTwo'){
         items.push(<three-control threeObject={layerItems[i].results}></three-control>);
+      }else if(layerItems[i].itemType=='threeThree'){
+        items.push(<three-three-control threeObject={layerItems[i].results}></three-three-control>);
       }else if(layerItems[i].itemType=='indexlist'){
         items.push(<indexlist-control commoArray={layerItems[i].results}></indexlist-control>);
       }else if(layerItems[i].itemType=='icons'){
@@ -68,6 +71,7 @@ export default {
   components: {
     bannerControl,
     threeControl,
+    threeThreeControl,
     indexlistControl,
     navtopControl,
     iconsControl,

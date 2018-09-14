@@ -1,6 +1,6 @@
 <template>
   <div class="exchange_container">
-    <header class="header">
+    <!-- <header class="header">
       <form class="search_form">
         <div class="form_box">
           <i class="icon-sousuo iconfont"></i>
@@ -8,26 +8,23 @@
         </div>
         <input type="submit" value="搜索" name="submit" class="search_submit" @click.prevent="searchTarget('')">
       </form>
-    </header>
-    <ul class="exchange_list_wrap" v-if="pageStatus" v-load-more="loaderMore">
-      <router-link :to="{path: '/detail', query:{id:item.id}}" tag="li" class="dopser_item" v-for="item in orderListArr">
-        <div class="dopser_item_l">
-          <img :src="item.roadcastImg" @error="imgError($event)">
+    </header> -->
+
+    <ul class="content_list_wrap" v-load-more="loaderMore">
+      <router-link :to="{path: '/detail', query:{id:item.id}}" tag="li" class="content_list_item" v-for="item in orderListArr">
+        <div class="item_imgBox">
+          <img :src="item.roadcastImg" @error="imgError($event)" alt="">
         </div>
-        <div class="dopser_item_r">
-          <div class="dopser_item_r_l">
-            <p class="item_title ellipsis">{{item.describe}}</p>
-            <p class="item_time">{{item.goldcoin}}积分</p>
-          </div>
-          <div class="dopser_item_r_r">
-            <span class="excha_go" :class="{on:item.status}">兑换</span>
-          </div>
+        <div class="item_title">
+          <div class="item_name ellipsis">{{item.describe}}</div>
+          <div class="item_describe"><span class="text_yellow" style="margin-right: .06rem">{{item.goldcoin}}</span>金币</div>
+        </div>
+        <div class="laber_wrap" v-if="item.laber">
+          <div class="laber_text" v-if="typeof(item.laber)=='string'">{{item.laber}}</div>
         </div>
       </router-link>
     </ul>
-    <div class="loading" v-else>
-      <img src="../../images/loading.gif">
-    </div>
+
     <p v-if="orderLoading" class="empty_data">加载中...</p>
     <p v-if="touchend" class="empty_data">没有更多了</p>
   </div>
@@ -48,24 +45,19 @@ export default {
       nothing: false, //无数据
       orderLoading: false, //显示加载动画
       preventRepeatReuqest: false, //到达底部加载数据，防止重复加载
-
+      /*搜索*/
       searchValue: '', // 搜索内容
       oldSearchValue:'',//旧值
       isInitSearchValue:true,//是否是初始化状态的搜索框
 
-      pageStatus:false,
     }
   },
-  //创建前
-  beforeCreate() {
 
-  },
   //创建完毕状态
   created() {
     this.searchValue = this.$route.query.q;
     //this.productId = this.$route.query.productId;
   },
-
   //挂载前状态
   beforeMount() {
 
@@ -74,38 +66,18 @@ export default {
   mounted() {
     this.initData();
   },
-  //更新前状态
-  beforeUpdate() {
-
-  },
-  //更新完成状态
-  updated() {
-
-  },
-  //销毁前状态
-  beforeDestroy() {
-
-  },
-  //销毁完成状态
-  destroyed() {
-
-  },
   //需要使用的模块
   components: {
 
   },
-
   //父组件的参数书
   props: [],
-
   //需要引用的外部js方法
   mixins: [loadMore, getImgPath],
-
   //计算值 这里可以实时监听某个数据的变化
   computed: {
 
   },
-
   //方法
   methods: {
     ...mapMutations([
@@ -147,7 +119,6 @@ export default {
     async initData() {
       //获取数据
       let res = await getProductList(this.page, this.querySize,this.searchValue);
-      this.pageStatus=true;
       this.orderListArr = [...res.data.row];
       //如果当前页等于总页数 到底了
       if (res.data.pageAmount == res.data.pageNow) {
@@ -210,7 +181,7 @@ export default {
 @import 'src/style/mixin';
 
 .exchange_container {
-  background-color: #fff !important;
+  /*background-color: #fff !important;*/
 }
 
 .loading {
@@ -260,79 +231,72 @@ export default {
   }
 }
 
-
-
 /*搜索 e */
 
 
 /*商品列表 s */
-
-.exchange_list_wrap {
-  .dopser_item {
+.content_list_wrap {
     display: flex;
-    font-size: .28rem;
-    padding: .18rem;
-    border-bottom: 0.025rem solid #f0f0f0;
-    .dopser_item_l {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    .laber_wrap{
+      width: 1.65rem;
+      height: 1.65rem;
+      background-color: #ec4436;
       text-align: center;
-      margin-right: .16rem;
-      img {
-        width: 2.6rem;
-        height: 1.26rem;
-        display: block;
+      position: absolute;
+      top: -.825rem;
+      left: -.825rem;
+      transform:rotate(-45deg);
+      .laber_text{
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        line-height: .5rem;
+        height: .5rem;
+        font-size: .26rem;
+        color: #fff;
       }
     }
-    .dopser_item_r {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: .3rem 0 .3rem 0;
-      .dopser_item_r_r {
-        width: 1rem;
-      }
-      .excha_go {
-        display: inline-block;
-        padding: .02rem .08rem;
-        border: none;
-        border-radius: 4px;
-        background-color: #d5d5d5;
-        color: #fff;
-        &.on {
-          display: inline-block;
-          padding: .02rem .08rem;
-          border: solid 0.02rem $fontD;
-          background-color: #fff;
-          border-radius: 4px;
-          color: $fontD;
-        }
-      }
-      .item_title {
-        width: 3.2rem;
-        font-size: .32rem;
-        margin-bottom: .1rem;
-      }
-      .item_time {
-        color: $fontC;
+    .content_list_item {
+      width: 3.69rem;
+      list-style: none;
+      background-color: #fff;
+      margin-right: .12rem;
+      margin-bottom: .12rem;
+      position: relative;
+      overflow: hidden;
+      &:nth-child(2n) {
+        margin-right: 0;
       }
 
-      i {
-        color: #929292;
-        /*display: block;
-        line-height: .28rem;*/
+      .item_title {
+        line-height: .48rem;
+        padding:.1rem .18rem;
+        .item_name {
+          font-size: .3rem;
+          color: #333333;
+        }
+        .item_describe {
+          font-size: .29rem;
+          color: #666666;
+          .text_yellow{
+            color:#F85A6A;
+          }
+        }
+      }
+
+      .item_imgBox {
+        padding:.84rem .35rem;
+        img {
+          width: 100%;
+          border-radius: .08rem;
+          display: block;
+        }
       }
     }
   }
-}
-
-
-
-
-/*商品列表 e */
 
 
 /*没有更多*/

@@ -61,15 +61,21 @@ module.exports = {
         "router":"ticketList"
       }]
     },{
-      "itemType":"three",
+      "itemType":"threeTwo",
       "results": {
-        "left": [{
+        "title": "@csentence(3, 5)",
+        "data|2": [{
           "name": "@csentence(3, 5)",
           "describe": "@cparagraph(1, 3)",
           "id": "@id",
           "roadcastImg": "@IMG(300x160,@color())"
-        }],
-        "right|2": [{
+        }]
+      }
+    },{
+      "itemType":"threeThree",
+      "results": {
+        "title": "@csentence(3, 5)",
+        "data|3": [{
           "name": "@csentence(3, 5)",
           "describe": "@cparagraph(1, 3)",
           "id": "@id",
@@ -81,6 +87,7 @@ module.exports = {
       "results":{
         "listTitle":"@csentence(3, 5)",
         "listData|20": [{
+          "laber":"@csentence(1, 2)",
           "describe": "@cparagraph(1, 3)",
           "id": "@id",
           "roadcastImg": "@IMG(300x160,@color())",
@@ -158,6 +165,27 @@ module.exports = {
       "status": true, //"@boolean",
       "describe": "@cparagraph(1, 3)",
       "goldcoin": "@natural(0, 100)",
+    }
+  }),
+
+  //所以积分列表接口
+  api_product_list: Mock.mock({
+    "code": 0,
+    "msg": "success",
+    "data": {
+      "pageAmount": 114,
+      "pageNow": 1,
+      "pageSize": 8,
+      "recordAmount": 911,
+      "row|12": [{
+        "laber":"@csentence(1, 2)",
+        "describe": "@cparagraph(1, 3)",
+        "id": "@id",
+        "time": "@datetime()",
+        "roadcastImg": "@IMG(300x160,@color())",
+        "goldcoin": "@natural(0, 100)",
+        "status": "@boolean"
+      }]
     }
   }),
 
@@ -245,25 +273,7 @@ module.exports = {
 
   
 
-  //所以积分列表接口
-  api_product_list: Mock.mock({
-    "code": 0,
-    "msg": "success",
-    "data": {
-      "pageAmount": 114,
-      "pageNow": 1,
-      "pageSize": 8,
-      "recordAmount": 911,
-      "row|12": [{
-        "describe": "@cparagraph(1, 3)",
-        "id": "@id",
-        "time": "@datetime()",
-        "roadcastImg": "@IMG(300x160,@color())",
-        "goldcoin": "@natural(0, 100)",
-        "status": "@boolean"
-      }]
-    }
-  }),
+  
 
 
   //订单详情接口
