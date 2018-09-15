@@ -4,21 +4,23 @@
       <div class="hea_line">共{{orderListArr.length}}张可用优惠券</div>
     </header> -->
     <ul class="exchange_list_wrap">
-      <li class="dopser_item" v-for="item in orderListArr">
+      <router-link tag="li" :to="{path: '/ticketInvalid', query:{id:item.wx_card_code}}" class="dopser_item" v-for="item in orderListArr">
         <div class="dopser_item_r">
           <div class="dopser_item_r_l">
+            <div class="item_nunber"><span class="number_row">4</span class="com_row">元</div>
+            <div class="item_text">券类型</div>
+          </div>
+          <div class="dopser_item_r_r">
             <p class="item_title ellipsis">{{item.title}}</p>
             <p class="item_time">{{item.end_time}}前使用</p>
           </div>
-          <div class="dopser_item_r_r">
-            <span v-if="item.status==3" class="excha_go1"></span>
-            <span v-if="item.status==4" class="excha_go"></span>
-          </div>
         </div>
-      </li>
+        <span class="excha_go1"></span>
+        <span v-if="item.status==4" class="excha_go"></span>
+      </router-link>
     </ul>
     <!-- <div class="layout_buttom">
-      <div class="btn">查看不可以优惠券</div>
+      <router-link tag="div" to="/ticketInvalid" class="btn">查看不可用优惠券</router-link>
     </div> -->
     <!-- <p v-if="orderLoading" class="empty_data">加载中...</p>
     <p v-if="nothing" class="empty_data">暂无数据</p>
@@ -129,7 +131,7 @@ export default {
 
     async initData() {
       //获取数据
-      let res = await getMemberCouponList(this.page, this.querySize,2);
+      let res = await getMemberCouponList(this.page, this.querySize,1);
 
       this.SET_LOADING(false);
       if(!res.res){
@@ -198,9 +200,12 @@ export default {
 
 .exchange_container {
   /*background-color: #fff !important;*/
-  padding: 0 .32rem;
+  padding: 0 .32rem .4rem;
 }
 
+.layout_buttom{
+  margin-top:.2rem;
+}
 .btn {
     margin: auto;
     width: 3rem;
@@ -208,8 +213,8 @@ export default {
     line-height: .6rem;
     margin-bottom: .3rem;
     text-align: center;
-    color: #ed6753;
-    border: solid 0.025rem #ed6753;
+    color: #FAA71B;
+    border: solid 0.025rem #FAA71B;
     border-radius: .3rem;
 }
 
@@ -246,79 +251,82 @@ export default {
 /*商品列表 s */
 
 .exchange_list_wrap {
-  padding-top: .35rem;
   padding-bottom: .3rem;
+  padding-top: .35rem;
   .dopser_item {
     display: flex;
     font-size: .28rem;
-    padding: .35rem .52rem;
-    border-bottom: 0.06rem solid #ccc;
+    padding: .22rem 0;
+    border-left: 0.1rem solid #CCCCCC;
     background-color: #fff;
-    background-image: url(../../images/wenluse.png);
+    /*background-image: url(../../images/wenluse.png);
     background-repeat:no-repeat;
-    background-size: 100%;
+    background-size: 100%;*/
     margin-bottom: .3rem;
-    border-radius:.05rem;
+    border-radius:.08rem;
+    position: relative;
+    box-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.1);
     &:last-child {
       /*border-bottom: none;*/
     }
-    .dopser_item_l {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      margin-right: .16rem;
-      width: 2.6rem;
-      overflow: hidden;
-      img {
-        width: 100%;
-        display: block;
-        @include center();
-      }
+
+    .excha_go {
+      @include ct;
+      right: .36rem;
+      width: 1.44rem;
+      height: 1.44rem;
+      display: block;
+      background: url(../../images/yiguoqi.png) no-repeat center;
+      background-size: 100%;
     }
+    .excha_go1 {
+      @include ct;
+      right: .36rem;
+      width: 1.44rem;
+      height: 1.44rem;
+      display: block;
+      background: url(../../images/yihexiao.png) no-repeat center;
+      background-size: 100%;
+    }
+
+
+
     .dopser_item_r {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: space-between;
       .dopser_item_r_l {
-        flex: 1;
+        width: 1.9rem;
+        padding: .2rem 0;
+        text-align: center;
+        line-height: .45rem;
+        border-right: solid .025rem #EDEDED;
+        .item_nunber{
+          color: #999999;
+          .number_row{
+            font-size: .35rem;
+          }
+        }
+        .item_text{
+          color: #999999;
+          font-size: .28rem;
+        }
       }
       .dopser_item_r_r {
+        flex: 1;
+        line-height: .5rem;
+        padding: .14rem .3rem;
         /*width: 1rem;*/
       }
-      .excha_go {
-        width: 1.3rem;
-        height: 1.3rem;
-        display: block;
-        background: url(../../images/yiguoqi.png) no-repeat center;
-        background-size: 100%;
-      }
-      .excha_go1 {
-        width: 1.3rem;
-        height: 1.3rem;
-        display: block;
-        background: url(../../images/yihexiao.png) no-repeat center;
-        background-size: 100%;
-      }
       .item_title {
-        width: 4.6rem;
-        font-size: .32rem;
-        line-height: .6rem;
-        font-size: .32rem;
-        color: #ccc;
+        width: 4rem;
+        font-size: .28rem;
+        color: #999999;
       }
       .item_time {
-        color: #ccc;
-        font-size: .26rem;
-        line-height: .45rem;
-      }
-
-      i {
-        color: #929292;
-        /*display: block;
-        line-height: .28rem;*/
+        color: #999999;
+        font-size: .24rem;
       }
     }
   }

@@ -7,11 +7,12 @@
       <router-link tag="li" :to="{path: '/ticketInvalid', query:{id:item.wx_card_code}}" class="dopser_item" v-for="item in orderListArr">
         <div class="dopser_item_r">
           <div class="dopser_item_r_l">
-            <p class="item_title ellipsis">{{item.title}}</p>
-            <p class="item_time">{{item.end_time}}前使用</p>
+            <div class="item_nunber"><span class="number_row">4</span class="com_row">元</div>
+            <div class="item_text">券类型</div>
           </div>
           <div class="dopser_item_r_r">
-            <span class="excha_go"></span>
+            <p class="item_title ellipsis">{{item.title}}</p>
+            <p class="item_time">{{item.end_time}}前使用</p>
           </div>
         </div>
       </router-link>
@@ -200,6 +201,9 @@ export default {
   padding: 0 .32rem .4rem;
 }
 
+.layout_buttom{
+  margin-top:.2rem;
+}
 .btn {
     margin: auto;
     width: 3rem;
@@ -207,8 +211,8 @@ export default {
     line-height: .6rem;
     margin-bottom: .3rem;
     text-align: center;
-    color: #ed6753;
-    border: solid 0.025rem #ed6753;
+    color: #FAA71B;
+    border: solid 0.025rem #FAA71B;
     border-radius: .3rem;
 }
 
@@ -250,31 +254,17 @@ export default {
   .dopser_item {
     display: flex;
     font-size: .28rem;
-    padding: .35rem .52rem;
-    border-bottom: 0.06rem solid #ed6753;
+    padding: .22rem 0;
+    border-left: 0.1rem solid #FAA71B;
     background-color: #fff;
-    background-image: url(../../images/wenluse.png);
+    /*background-image: url(../../images/wenluse.png);
     background-repeat:no-repeat;
-    background-size: 100%;
+    background-size: 100%;*/
     margin-bottom: .3rem;
-    border-radius:.05rem;
+    border-radius:.08rem;
+    box-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.1);
     &:last-child {
       /*border-bottom: none;*/
-    }
-    .dopser_item_l {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      margin-right: .16rem;
-      width: 2.6rem;
-      overflow: hidden;
-      img {
-        width: 100%;
-        display: block;
-        @include center();
-      }
     }
     .dopser_item_r {
       flex: 1;
@@ -282,42 +272,36 @@ export default {
       align-items: center;
       justify-content: space-between;
       .dopser_item_r_l {
-        flex: 1;
-      }
-      .dopser_item_r_r {
-        /*width: 1rem;*/
-      }
-      .excha_go {
-        display: inline-block;
-        height: .52rem;
-        line-height: .52rem;
+        width: 1.9rem;
+        padding: .2rem 0;
         text-align: center;
-        color: #333;
-        &.on {
-          display: inline-block; //padding: .02rem .08rem;
-          border: solid .025rem $fontD;
-          background-color: #fff;
-          border-radius: 4px;
-          color: $fontD;
+        line-height: .45rem;
+        border-right: solid .025rem #EDEDED;
+        .item_nunber{
+          color: #FAA71B;
+          .number_row{
+            font-size: .35rem;
+          }
+        }
+        .item_text{
+          color: #888888;
+          font-size: .28rem;
         }
       }
+      .dopser_item_r_r {
+        flex: 1;
+        line-height: .5rem;
+        padding: .14rem .3rem;
+        /*width: 1rem;*/
+      }
       .item_title {
-        width: 4.6rem;
-        font-size: .32rem;
-        line-height: .6rem;
-        font-size: .32rem;
-        color: #333;
+        width: 4rem;
+        font-size: .28rem;
+        color: #333333;
       }
       .item_time {
-        color: #999;
-        font-size: .26rem;
-        line-height: .45rem;
-      }
-
-      i {
-        color: #929292;
-        /*display: block;
-        line-height: .28rem;*/
+        color: #999999;
+        font-size: .24rem;
       }
     }
   }

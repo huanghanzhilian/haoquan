@@ -146,6 +146,22 @@ module.exports = {
         "status": 2,
         "title": "满100减20",
         "wx_logo_url": "https://mmbiz.qlogo.cn/mmbiz_jpg/6rqCdykt50hBAFbdMz9wxKSrwwOTKWsSlS17xASasvl06GtVjpcaclqziclb0IA4KjLmpVwcshwsV4QRwB0Hkkg/0?wx_fmt=jpeg"
+      },{
+        "id": 133,
+        "wx_card_code": "0028341676151979",
+        "coupon_template_id": 100,
+        "end_time": "2018-12-01 00:00:00",
+        "status": 2,
+        "title": "满100减20",
+        "wx_logo_url": "https://mmbiz.qlogo.cn/mmbiz_jpg/6rqCdykt50hBAFbdMz9wxKSrwwOTKWsSlS17xASasvl06GtVjpcaclqziclb0IA4KjLmpVwcshwsV4QRwB0Hkkg/0?wx_fmt=jpeg"
+      },{
+        "id": 133,
+        "wx_card_code": "0028341676151979",
+        "coupon_template_id": 100,
+        "end_time": "2018-12-01 00:00:00",
+        "status": 2,
+        "title": "满100减20",
+        "wx_logo_url": "https://mmbiz.qlogo.cn/mmbiz_jpg/6rqCdykt50hBAFbdMz9wxKSrwwOTKWsSlS17xASasvl06GtVjpcaclqziclb0IA4KjLmpVwcshwsV4QRwB0Hkkg/0?wx_fmt=jpeg"
       }]
     }
   }),
